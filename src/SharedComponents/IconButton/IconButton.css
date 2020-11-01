@@ -1,0 +1,16 @@
+.icon-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+    height: auto;
+}
+
+.icon-button-label {
+    font-weight: bold;
+    margin: 0;
+}
+
+.icon-button-icon {
+    margin: 0;
+}
