@@ -1,6 +1,8 @@
 import Axios from "axios";
 
 async function CheckLogin() {
+        //TODO Remove the checkTokenValidity and check if token is still valid (exprire date)
+        //If token not valid refresh the access token
         var token = localStorage.getItem("access_token")
         if (token === null) {
             return false

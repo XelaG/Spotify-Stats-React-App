@@ -17,6 +17,7 @@ async function authenticateToSpotify(code, handler) {
     var url = "https://accounts.spotify.com/api/token"
     await axios.post(url, qs.stringify(rqBody), config)
         .then(response => {
+            //TODO store date when access_token expires
             localStorage.setItem("access_token", response.data.access_token)
             localStorage.setItem("refresh_token", response.data.refresh_token)
             handler()

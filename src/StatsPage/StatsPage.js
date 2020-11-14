@@ -8,6 +8,7 @@ import authenticateToSpotify from "./Components/authenticateToSpotify";
 import "./StatsPage.css"
 import InfoCard from "./Components/InfoCard/InfoCard";
 import spotifyGetTop from "./Components/spotifyGetTop";
+import Switch from "./Components/Switch/Switch";
 
 class StatsPage extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class StatsPage extends Component {
             isLoggedIn: true,
             finishedWithCode: false,
             data: null,
+            whatToGet: "artists",
         }
     }
 
@@ -29,7 +31,7 @@ class StatsPage extends Component {
             await authenticateToSpotify(code, this.finishedWithState)
         var loggedIn = await CheckLogin()
         this.setState({isLoggedIn: loggedIn})
-        var data = await spotifyGetTop("artists", "short_term")
+        var data = await spotifyGetTop(this.state.whatToGet, "short_term")
         this.setState({data: data})
     }
 
@@ -41,24 +43,37 @@ class StatsPage extends Component {
     }
 
     generateCard = (data, nb) => {
-        console.log("ok")
-        return <InfoCard pictureUrl={data.images[0].url} title={data.name} underTitle={data.genres[0]} profileLink={data.external_urls.spotify} number={nb + 1}/>
+        if (data.type === "artist") {
+            return <InfoCard pictureUrl={data.images[0].url} title={data.name} underTitle={data.genres[0]} profileLink={data.external_urls.spotify} number={nb + 1}/>
+        } else if(data.type === "track") {
+            return <InfoCard pictureUrl={data.album.images[0].url} title={data.name} underTitle={data.artists[0].name} profileLink={data.external_urls.spotify} number={nb + 1}/>
+        }
     }
 
 
     displayCards = () => {
-        console.log("in display card")
         if (this.state.data === null)
             return null
         var display = []
-        console.log("in display card2 ")
-        console.log(this.state.data)
-        console.log(this.state.data.length)
         for (let i = 0; i < this.state.data.length; i++) {
-            console.log("in for ")
             display.push(this.generateCard(this.state.data[i], i))
         }
         return display
+    }
+
+    onSwitchChange = async (whichActive) => {
+        var didChange = false;
+        if (whichActive === 0 && this.state.whatToGet !== "artists") {
+            this.setState({whatToGet: "artists"})
+            didChange = true
+        } else if (whichActive === 1) {
+            didChange = true
+            this.setState({whatToGet: "tracks"})
+        }
+        if (didChange) {
+            var data = await spotifyGetTop(this.state.whatToGet, "short_term")
+            this.setState({data: data})
+        }
     }
 
     render() {
@@ -68,6 +83,8 @@ class StatsPage extends Component {
                     <h1 className="site-name">Spotify Stats</h1>
                     <IconButton roundedCorners="0px" width="10%" size="small" onclick={this.logout} label={"Disconnect"} icon={faSignOutAlt} bgColor={"#e83a4b"} textColor={"#FFF"} iconColor={"#FFF"} />
                 </div>
+                <Switch onChange={this.onSwitchChange} labelFirst={"Artists"} labelSecond={"Tracks"} basicColor={"#212121"} activeColor={"#1ED760"}/>
+                {/*TODO MAKE COMPONENT TO DISPLAY ALL THE CARDS*/}
                 <div className="stats-page-content">
                     {this.displayCards()}
                 </div>

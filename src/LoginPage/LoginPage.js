@@ -9,8 +9,6 @@ import "./LoginPage.css"
 import {Redirect} from "react-router";
 import CheckLogin from "../SharedComponents/CheckLogin/CheckLogin";
 
-//TODO Parallax effects on cover pictures
-
 class LoginPage extends Component {
     constructor(props) {
         super(props);

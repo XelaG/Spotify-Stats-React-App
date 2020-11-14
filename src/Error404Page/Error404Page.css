@@ -1,0 +1,13 @@
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #212121;
+}
+
+.error-message {
+    font-size: 12vw;
+    color: #1ED760;
+}

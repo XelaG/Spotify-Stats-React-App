@@ -23,7 +23,6 @@
     text-transform: uppercase;
     cursor: default;
 }
-/*TODO Trouver un moyen de bien display par ligne en commençant tjrs par la gauche*/
 .stats-page-content {
     margin-top: 50px;
     width: 90%;

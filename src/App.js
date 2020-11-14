@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import React from "react";
 import Error404Page from "./Error404Page/Error404Page";
 import StatsPage from "./StatsPage/StatsPage";
+
 function App() {
   return (
       <Router>
