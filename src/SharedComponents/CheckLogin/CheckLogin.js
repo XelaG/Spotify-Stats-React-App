@@ -28,6 +28,11 @@ async function checkTokenValidity(token) {
                 returnValue =  true
             }
         })
+        .catch(response => {
+            console.log(response)
+            localStorage.clear()
+            returnValue = false;
+        })
     return returnValue
 }
 
