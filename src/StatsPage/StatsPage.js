@@ -41,7 +41,7 @@ class StatsPage extends Component {
     async componentDidUpdate(prevProps, prevState) {
         console.log("Prev State =>", prevState)
         console.log("State => ", this.state)
-        if (prevState.typeOfWhat !== this.state.typeOfWhat || prevState.term !== this.state.term) {
+        if (prevState.topOfWhat !== this.state.topOfWhat || prevState.term !== this.state.term) {
             console.log("In refresh State")
             var data = await spotifyGetTop(this.state.topOfWhat, this.state.term)
             console.log("Data =>", data)
