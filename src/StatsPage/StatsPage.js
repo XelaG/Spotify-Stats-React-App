@@ -42,7 +42,12 @@ class StatsPage extends Component {
 
     generateCard = (data, nb) => {
         console.log("ok")
-        return <InfoCard pictureUrl={data.images[0].url} title={data.name} underTitle={data.genres[0]} profileLink={data.external_urls.spotify} number={nb + 1}/>
+        var names = ""
+        data.artists.forEach(item => {
+            names += item.name
+            names += " x "
+        })
+        return <InfoCard pictureUrl={data.album.images[0].url} title={data.name} underTitle={names} profileLink={data.external_urls.spotify} number={nb + 1}/>
     }
 
 
