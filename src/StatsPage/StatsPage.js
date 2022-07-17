@@ -16,6 +16,10 @@ class StatsPage extends Component {
             isLoggedIn: true,
             finishedWithCode: false,
             data: null,
+            // topOfWhat can be either artists or tracks
+            topOfWhat: "artists",
+            // term can be short_term (4 weeks) medium_term (6 month) and long_term (all time)
+            term: "short_term"
         }
     }
 
@@ -29,9 +33,7 @@ class StatsPage extends Component {
             await authenticateToSpotify(code, this.finishedWithState)
         var loggedIn = await CheckLogin()
         this.setState({isLoggedIn: loggedIn})
-        // First arg can be either artists or tracks
-        // term can be short_term (4 weeks) medium_term (6 month) and long_term (all time)
-        var data = await spotifyGetTop("artists", "short_term") 
+        var data = await spotifyGetTop(this.state.topOfWhat, this.state.term) 
         this.setState({data: data})
     }
 
@@ -44,11 +46,20 @@ class StatsPage extends Component {
 
     generateCard = (data, nb) => {
         var names = ""
-        data.artists.forEach(item => {
-            names += item.name
-            names += " x "
-        })
-        names = names.slice(0, -3)
+        if (this.state.topOfWhat === "tracks") {
+            data.artists.forEach(item => {
+                names += item.name
+                names += " x "
+            })
+            names = names.slice(0, -3)
+        } else {
+            data.genres.forEach(item => {
+                names += item
+                names += " - "
+            })
+            names = names.slice(0, -3)
+        }
+        
         return <InfoCard pictureUrl={data.album.images[0].url} title={data.name} underTitle={names} profileLink={data.external_urls.spotify} number={nb + 1}/>
     }
 
