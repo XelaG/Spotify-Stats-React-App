@@ -29,7 +29,9 @@ class StatsPage extends Component {
             await authenticateToSpotify(code, this.finishedWithState)
         var loggedIn = await CheckLogin()
         this.setState({isLoggedIn: loggedIn})
-        var data = await spotifyGetTop("tracks", "short_term")
+        // First arg can be either artists or tracks
+        // term can be short_term (4 weeks) medium_term (6 month) and long_term (all time)
+        var data = await spotifyGetTop("artists", "short_term") 
         this.setState({data: data})
     }
 
