@@ -1,14 +1,17 @@
 import axios from 'axios'
 
 async function spotifyGetTop(type, time_range) {
+    console.log("In get top")
     var data = null
     var url = "https://api.spotify.com/v1/me/top/" + type
     if (localStorage.getItem(type + "_data") !== null) {
         const howManyHours = checkHowManyTimeSinceLastUpdateInHour(type)
+        console.log("How many hours since last refresh =>", howManyHours)
         if (howManyHours < 12 && howManyHours !== -1) {
             return JSON.parse(localStorage.getItem(type + "_data"))
         }
     }
+    console.log("Before api call")
     await axios.get(url, {
         headers: {
             'Authorization': "Bearer " + localStorage.getItem("access_token"),
@@ -18,6 +21,7 @@ async function spotifyGetTop(type, time_range) {
         }
     })
         .then(response => {
+            console.log("Response =>", response)
             if (response.status === 200) {
                 data = response.data.items
                 localStorage.setItem(type + "_data", JSON.stringify(data))
