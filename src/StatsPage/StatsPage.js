@@ -19,7 +19,8 @@ class StatsPage extends Component {
             // topOfWhat can be either artists or tracks
             topOfWhat: "artists",
             // term can be short_term (4 weeks) medium_term (6 month) and long_term (all time)
-            term: "short_term"
+            term: "short_term",
+            isUpdateFinished: true,
         }
     }
 
@@ -40,10 +41,12 @@ class StatsPage extends Component {
     async componentDidUpdate(prevProps, prevState) {
         console.log("In refresh State")
         if (prevState.typeOfWhat !== this.state.typeOfWhat || prevState.term !== this.state.term) {
+            this.setState({isUpdateFinished: false})
             console.log("In refresh State")
             var data = await spotifyGetTop(this.state.topOfWhat, this.state.term)
             console.log("Data =>", data)
             this.setState({data: data})
+            this.setState({isUpdateFinished: false})
         }
     }
 
@@ -83,6 +86,8 @@ class StatsPage extends Component {
 
     displayCards = () => {
         if (this.state.data === null)
+            return null
+        if (!this.state.isUpdateFinished)
             return null
         var display = []
         for (let i = 0; i < this.state.data.length; i++) {
