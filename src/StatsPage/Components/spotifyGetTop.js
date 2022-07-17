@@ -5,7 +5,7 @@ async function spotifyGetTop(type, time_range) {
     var data = null
     var url = "https://api.spotify.com/v1/me/top/" + type
     if (localStorage.getItem(type + "_data_" + time_range) !== null) {
-        const howManyHours = checkHowManyTimeSinceLastUpdateInHour(type)
+        const howManyHours = checkHowManyTimeSinceLastUpdateInHour(type, time_range)
         console.log("How many hours since last refresh =>", howManyHours)
         if (howManyHours < 12 && howManyHours !== -1) {
             return JSON.parse(localStorage.getItem(type + "_data"))
@@ -34,7 +34,7 @@ async function spotifyGetTop(type, time_range) {
     return(data)
 }
 
-function checkHowManyTimeSinceLastUpdateInHour(type) {
+function checkHowManyTimeSinceLastUpdateInHour(type, time_range) {
     if (localStorage.getItem(type + "_last_save_" + time_range) === null)
         return -1
     var dateNow = new Date()
