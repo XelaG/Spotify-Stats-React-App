@@ -41,12 +41,11 @@ class StatsPage extends Component {
     async componentDidUpdate(prevProps, prevState) {
         console.log("In refresh State")
         if (prevState.typeOfWhat !== this.state.typeOfWhat || prevState.term !== this.state.term) {
-            this.setState({isUpdateFinished: false})
             console.log("In refresh State")
             var data = await spotifyGetTop(this.state.topOfWhat, this.state.term)
             console.log("Data =>", data)
             this.setState({data: data})
-            this.setState({isUpdateFinished: false})
+            this.setState({isUpdateFinished: true})
         }
     }
 
@@ -98,9 +97,12 @@ class StatsPage extends Component {
 
     setType = (e) => {
         this.setState({topOfWhat: e.target.value})
+        this.setState({isUpdateFinished: false})
     }
     setTerm = (e) => {
         this.setState({term: e.target.value})
+        this.setState({isUpdateFinished: false})
+
     }
 
     render() {
