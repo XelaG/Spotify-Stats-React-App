@@ -60,7 +60,13 @@ class StatsPage extends Component {
             names = names.slice(0, -3)
         }
         
-        return <InfoCard pictureUrl={data.album.images[0].url} title={data.name} underTitle={names} profileLink={data.external_urls.spotify} number={nb + 1}/>
+        return <InfoCard 
+                    pictureUrl={this.state.topOfWhat === "tracks" ? data.album.images[0].url : data.images[0].url}
+                    title={data.name}
+                    underTitle={names}
+                    profileLink={data.external_urls.spotify}
+                    number={nb + 1}
+                />
     }
 
 
