@@ -36,9 +36,7 @@ function checkHowManyTimeSinceLastUpdateInHour(type) {
     var dateNow = new Date()
     var lastSaveDate = Date.parse(localStorage.getItem(type + "_last_save"))
     var diffTime = Math.abs(dateNow - lastSaveDate);
-    console.log("Time now = " + dateNow + " Last save = " + lastSaveDate)
     diffTime = diffTime / (1000 * 60 * 60)
-    console.log("difftime = " + diffTime)
     return diffTime
 }
 

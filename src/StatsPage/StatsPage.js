@@ -41,7 +41,6 @@ class StatsPage extends Component {
     }
 
     generateCard = (data, nb) => {
-        console.log("ok")
         var names = ""
         data.artists.forEach(item => {
             names += item.name
@@ -53,16 +52,10 @@ class StatsPage extends Component {
 
 
     displayCards = () => {
-        console.log("in display card")
         if (this.state.data === null)
             return null
         var display = []
-        console.log("in display card2 ")
-        console.log(this.state.data)
-        console.log(this.state.data.length)
         for (let i = 0; i < this.state.data.length; i++) {
-            console.log("in for ")
-            console.log(this.state.data[i])
             display.push(this.generateCard(this.state.data[i], i))
         }
         return display
