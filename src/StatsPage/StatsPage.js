@@ -39,7 +39,9 @@ class StatsPage extends Component {
 
     async componentDidUpdate(prevProps, prevState) {
         if (prevState.search!== this.state.search) {
-            var data = await spotifyGetTop(this.state.topOfWhat, this.state.term) 
+            console.log("In refresh State")
+            var data = await spotifyGetTop(this.state.topOfWhat, this.state.term)
+            console.log("Data =>", data)
             this.setState({data: data})
         }
     }
@@ -52,6 +54,7 @@ class StatsPage extends Component {
     }
 
     generateCard = (data, nb) => {
+        console.log("Data in generate cards => ", data)
         var names = ""
         if (this.state.topOfWhat === "tracks") {
             data.artists.forEach(item => {
@@ -102,11 +105,11 @@ class StatsPage extends Component {
                     <IconButton roundedCorners="0px" width="10%" size="small" onclick={this.logout} label={"Disconnect"} icon={faSignOutAlt} bgColor={"#e83a4b"} textColor={"#FFF"} iconColor={"#FFF"} />
                 </div>
                 <div onChange={this.setType}>
-                    <input type="radio" value="artists" name="type"/> Artists
+                    <input type="radio" value="artists" name="type" checked/> Artists
                     <input type="radio" value="tracks" name="type"/> Tracks
                 </div>
                 <div onChange={this.setTerm}>
-                    <input type="radio" value="short_term" name="term"/> Last Month
+                    <input type="radio" value="short_term" name="term" checked/> Last Month
                     <input type="radio" value="medium_term" name="term"/> Last 6 Month
                     <input type="radio" value="long_term" name="term"/> All Time
                 </div>
