@@ -56,6 +56,7 @@ class StatsPage extends Component {
         console.log(this.state.data.length)
         for (let i = 0; i < this.state.data.length; i++) {
             console.log("in for ")
+            console.log(this.state.data[i])
             display.push(this.generateCard(this.state.data[i], i))
         }
         return display
