@@ -47,6 +47,7 @@ class StatsPage extends Component {
             names += item.name
             names += " x "
         })
+        names = names.slice(names.length - 4, names.length - 1)
         return <InfoCard pictureUrl={data.album.images[0].url} title={data.name} underTitle={names} profileLink={data.external_urls.spotify} number={nb + 1}/>
     }
 
